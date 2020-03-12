@@ -1,2 +1,2 @@
 # Mood-App
-Visual analytics Application that displays mood data.
+Visual analytics Application that displays submitted mood data.
