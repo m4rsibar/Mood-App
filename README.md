@@ -26,5 +26,6 @@ Visual analytics Application that displays submitted mood data.
 - [ ] Get Familiarized with Britecharts documentation
 - [ ] Create Database and Tables.
 - [ ] Create React App Forum
-- [ ] Use a post request to submit data into db
 - [ ] Create Database
+- [ ] Use a post request to submit data into db
+
