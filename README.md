@@ -8,6 +8,7 @@ Visual analytics Application that displays submitted mood data.
 -  **DB:** SQL
 -  **FrontEnd:** React
 -  **Framework:** Flask, React
+-  **ORM:** SQLAlchemy
 -  **PaaS:** Heroku
 
 ## Getting Started
