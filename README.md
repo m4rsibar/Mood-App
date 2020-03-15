@@ -13,12 +13,13 @@ Visual analytics Application that displays submitted mood data.
 ## Getting Started
 
 1. Clone the project
-2. Run npm install
-3. In the project directory run: npm start to launch the project with localhost. 
+2. ...
+3. ...
 4. Or click the Heroku link in the description.
 
 ## Features
 - Performs CRUD operations.
+- Data visualization.
 
 ## Milestones
 
