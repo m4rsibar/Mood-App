@@ -4,10 +4,9 @@ Visual analytics Application that displays submitted mood data.
 ## Technical Summary
 
 -  **Backend:** Python
--  **Libraries:** Britecharts, Pandas
--  **DB:** SQL
--  **FrontEnd:** React
--  **Framework:** Flask, React
+-  **Libraries:** Chart.js, 
+-  **DB:** SQL - postgres
+-  **Framework:** Flask
 -  **ORM:** SQLAlchemy
 -  **PaaS:** Heroku
 
@@ -24,8 +23,8 @@ Visual analytics Application that displays submitted mood data.
 ## Milestones
 
 - [x] Create a GitHub Repo and Start on a Project Plan
-- [ ] Get Familiarized with Britecharts documentation
+- [x] Get Familiarized with Chart.js documentation
 - [x] Create Database and Tables.
-- [ ] Create React App Forum
-- [ ] Use a post request to submit data into db
+- [ ] Create frontend components
+- [ ] Use a http requests to get/post data to/from db
 
