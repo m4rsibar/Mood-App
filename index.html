@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+    <title>MoodApp</title>
+  </head>
+  <body>
+    <canvas id="chart"></canvas>
+
+    <script>
+      const Http = new XMLHttpRequest();
+      const url = "http://127.0.0.1:5000/thisweek";
+      Http.open("GET", url);
+      Http.send();
+
+      Http.onreadystatechange = e => {
+        console.log(Http.responseText);
+      };
+
+      let chart = document.getElementById("chart").getContext("2d");
+
+      let moodgraph = new Chart(chart, {
+        type: "bar",
+        data: {
+          labels: [
+            "Sunday",
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday",
+            "Saturday"
+          ],
+          datasets: [
+            {
+              label: "MoodRating",
+              data: [2, 3, 4, 5, 5, 3, 2]
+            }
+          ]
+        },
+        options: {
+          scales: {
+            yAxes: [
+              {
+                ticks: {
+                  suggestedMin: 0,
+                  suggestedMax: 5
+                }
+              }
+            ]
+          }
+        }
+      });
+    </script>
+  </body>
+</html>

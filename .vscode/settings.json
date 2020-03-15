@@ -1,0 +1,6 @@
+{
+    "python.pythonPath": "C:\\Users\\maris\\.virtualenvs\\FlaskRestApi-OxxIagkr\\Scripts\\python.exe",
+    "python.linting.pylintEnabled": true,
+    "python.linting.enabled": true,
+    "python.linting.flake8Enabled": false
+}
