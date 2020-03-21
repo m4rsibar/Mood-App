@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify, render_template
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
-from datetime import datetime, timedelta
+from datetime import datetime
 from flask_cors import CORS
 
 
@@ -16,7 +16,6 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://grjibwwwdxokwx:f02ad6175a347
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
-
 
 # Marshmallow
 ma = Marshmallow(app)
@@ -87,18 +86,16 @@ def get_moods():
 # Fetch moods for current week
 @app.route('/thisweek', methods=['GET'])
 def get_weeks_moods():
-    today = datetime.now().date()
-    start = today - timedelta(days=today.weekday())
-    end = start + timedelta(days=6)
-    start = str(start)
-    end = str(end)
+    today = datetime.today()
+    week = today.isocalendar()[1]
+    month = today.month
+    year = today.year
 
 
 # Raw sql requirement
     data = db.session.execute(
-        f"SELECT m.id, m.date, coalesce(m.moodrating, 0) as moodrating, m.comment, c.day_of_week FROM mood m RIGHT JOIN calendar c ON m.date=c.day_id where c.week_of_year=11 and month=3 and year=2020 order by day_of_week")
+        f"SELECT m.id, m.date, coalesce(m.moodrating, 0) as moodrating, m.comment, c.day_of_week FROM mood m RIGHT JOIN calendar c ON m.date=c.day_id where c.week_of_year={week} and month={month} and year={year} order by day_of_week")
     return jsonify({'result': [dict(row) for row in data]})
-    # return jsonify(data)
 
 
 # Run server
