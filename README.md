@@ -15,8 +15,7 @@ Visual analytics Application that displays submitted mood data.
 1. Clone the project
 2. ...
 3. ...
-4. Or click the Heroku link in the description.
-
+4. Or visit this link [https://mood-visualization.herokuapp.com/](https://mood-visualization.herokuapp.com/)
 ## Features
 - Performs CRUD operations.
 - Data visualization.
