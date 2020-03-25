@@ -65,6 +65,11 @@ def index():
     return render_template("form.html")
 
 
+@app.route('/weekgraph')
+def week():
+    return render_template("index.html")
+
+
 @app.route('/mood', methods=['POST'])
 def add_mood():
     date = request.form['date']
@@ -85,7 +90,7 @@ def add_mood():
         db.session.add(new_mood)
         db.session.commit()
         flash("Mood successfully entered.")
-    return redirect('/')
+    return redirect('/weekgraph')
 
     # return str(exists)
     # return mood_schema.jsonify(new_mood)
