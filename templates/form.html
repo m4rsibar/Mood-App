@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- Required Core Stylesheet -->
+<link rel="stylesheet" href="https://unpkg.com/@glidejs/glide@3.3.0/dist/css/glide.core.css">
+
+<!-- Optional Theme Stylesheet -->
+<link rel="stylesheet" href="https://unpkg.com/@glidejs/glide@3.3.0/dist/css/glide.theme.css">
+<link rel="stylesheet" href="/static/form.css">
+    <title>Document</title>
+</head>
+<body>
+
+    {% with messages = get_flashed_messages() %} {% if messages %} {% for message
+        in messages %} <span id="message">{{ message }}</span> {% endfor %} {% endif
+        %} {% endwith %}
+
+<form action="/mood" method='post' id="form">
+  <div class="carousel__container">
+    <div class="js-carousel carousel glide">
+      <div class="glide__track" data-glide-el="track">
+        <ul class="glide__slides">
+          <li class="carousel__slide glide__slide">
+            <div class="carousel__slide__content">
+              <div class="box">
+                <div class="insidebox">
+                  <h1 class="header"> Date </h1>
+                  <p class="cardText"> Enter the date you'd like to set your mood for. </br>You can only set one mood a day. </p>
+                  <div class="inputarea"><input type="date" name="date"></input></div>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li class="carousel__slide glide__slide">
+              <div class="box">
+                <div class="insidebox">
+                  <h1 class="header"> Mood </h1>
+                  <p class="cardText"> Enter your mood on a scale of 1-5</p>
+                  <div class="inputarea">
+                      
+                    <input
+                        type="range"
+                        min="0"
+                        max="50"
+                        value="0"
+                        class="range blue"
+                        name="moodrating"
+                        />
+                    <p id="output">0</p>
+                
+                
+                </div>
+                </div>
+              </div>
+          </li>
+          <li class="carousel__slide glide__slide">
+            <div class="carousel__slide__content">
+               <div class="box">
+                <div class="insidebox">
+                  <h1 class="header"> Comment </h1>
+                  <p class="cardText"> Optional: </br> Enter a comment... </p>
+                  <div class="inputarea">
+                    <textarea rows="4" cols="50" class ="text" placeholder= "Enter your text here..." name="comment"></textarea> 
+                   </div>
+              <div class="submitbuttonbox">
+                <a href="javascript:void()" class="btn" onclick="document.getElementById('form').submit()";>Submit</a>
+              </div>
+                </div>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+</form>
+
+<div class="glide__arrows" data-glide-el="controls">
+  <button class="glide__arrow glide__arrow--left" data-glide-dir="<">prev</button>
+  <button class="glide__arrow glide__arrow--right" data-glide-dir=">">next</button>
+</div>
+</div>
+</div>
+
+<script src="https://unpkg.com/@glidejs/glide@3.3.0/dist/glide.js"></script>
+<script src="/static/form.js"></script>
+
+</body>
+</html>

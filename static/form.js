@@ -1,3 +1,10 @@
+//Code for glidejs
+new Glide(".js-carousel", {
+  dragThreshold: 0,
+  keyboard: false
+}).mount();
+
+// Code for range slider
 var output = document.getElementById("output");
 
 var inputRange = document.getElementsByClassName("range")[0],

@@ -58,9 +58,11 @@ moods_schema = MoodSchema(many=True)
 
 
 # Routes
+
+
 @app.route('/')
 def index():
-    return render_template("Forum.html")
+    return render_template("form.html")
 
 
 @app.route('/mood', methods=['POST'])
@@ -70,15 +72,20 @@ def add_mood():
     moodratingDivided = int(moodrating)/10
     comment = request.form['comment']
 
+    if date == '' or moodrating == '':
+        flash("Required input: date and mood rating.")
+        return redirect('/')
+
     exists = db.session.query(db.exists().where(Mood.date == date)).scalar()
     if(exists):
         flash("You've already entered a mood for this date.")
-        return "fail"
+        return redirect('/')
     else:
         new_mood = Mood(date, moodratingDivided, comment)
         db.session.add(new_mood)
         db.session.commit()
-    return "success"
+        flash("Mood successfully entered.")
+    return redirect('/')
 
     # return str(exists)
     # return mood_schema.jsonify(new_mood)
