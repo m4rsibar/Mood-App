@@ -92,9 +92,6 @@ def add_mood():
         flash("Mood successfully entered.")
     return redirect('/weekgraph')
 
-    # return str(exists)
-    # return mood_schema.jsonify(new_mood)
-
 
 # Fetch all moods
 @app.route('/getmoods', methods=['GET'])
@@ -114,7 +111,7 @@ def get_weeks_moods():
 
 # Raw sql requirement
     data = db.session.execute(
-        f"SELECT m.id, m.date, coalesce(m.moodrating, 0) as moodrating, m.comment, c.day_of_week FROM mood m RIGHT JOIN calendar c ON m.date=c.day_id where c.week_of_year={week} and month={month} and year={year} order by day_of_week")
+        f"SELECT m.id, m.date, coalesce(m.moodrating, 0) as moodrating, m.comment, c.day_of_week FROM mood m RIGHT JOIN calendar c ON m.date=c.day_id where c.week_of_year={week} and c.day_of_week <> 0 and month={month} and year={year} union (SELECT m.id, m.date, coalesce(m.moodrating, 0) as moodrating, m.comment, c.day_of_week  FROM mood m RIGHT JOIN calendar c on m.date=c.day_id where c.week_of_year={week - 1} and c.day_of_week={0} and c.month={month} and c.year={year}) order by day_of_week")
     return jsonify({'result': [dict(row) for row in data]})
 
 
