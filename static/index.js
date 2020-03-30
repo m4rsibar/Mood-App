@@ -1,9 +1,4 @@
 let chart = document.getElementById("chart").getContext("2d");
-var gradient = chart.createLinearGradient(0, 0, 2800, 0);
-gradient.addColorStop(0, "rgba(232, 126, 240, .5)");
-gradient.addColorStop(0.5, "rgba(126, 134, 240, .5)");
-gradient.addColorStop(0.8, "rgb(161,214,227)");
-gradient.addColorStop(0.1, "rgba(55, 201, 247,.5)");
 
 ChartInit();
 
@@ -61,7 +56,7 @@ async function getData() {
 
   const res = await fetch("https://mood-visualization.herokuapp.com/thisweek");
   const data = await res.json();
-  console.log(data);
+  // console.log(data);
   data.result.forEach(i => {
     moods.push(i.moodrating), dates.push(i.date), comments.push(i.comment);
   });

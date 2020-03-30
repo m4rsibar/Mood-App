@@ -60,14 +60,19 @@ moods_schema = MoodSchema(many=True)
 # Routes
 
 
-@app.route('/')
+@app.route('/', methods=['GET'])
 def index():
-    return render_template("form.html")
+    return render_template("home.html")
 
 
-@app.route('/weekgraph')
-def week():
+@app.route('/thisWeeksGraph', methods=['GET'])
+def thisWeeksGraph():
     return render_template("index.html")
+
+
+@app.route('/moodForm', methods=['GET'])
+def form():
+    return render_template("form.html")
 
 
 @app.route('/mood', methods=['POST'])
@@ -79,18 +84,18 @@ def add_mood():
 
     if date == '' or moodrating == '':
         flash("Required input: date and mood rating.")
-        return redirect('/')
+        return redirect('/moodForm')
 
     exists = db.session.query(db.exists().where(Mood.date == date)).scalar()
     if(exists):
         flash("You've already entered a mood for this date.")
-        return redirect('/')
+        return redirect('/moodForm')
     else:
         new_mood = Mood(date, moodratingDivided, comment)
         db.session.add(new_mood)
         db.session.commit()
         flash("Mood successfully entered.")
-    return redirect('/weekgraph')
+    return redirect('/thisWeeksGraph')
 
 
 # Fetch all moods
@@ -99,6 +104,25 @@ def get_moods():
     all_moods = Mood.query.all()
     result = moods_schema.dump(all_moods)
     return jsonify(result)
+
+# Fetch moods for a month
+
+
+@app.route('/month', methods=['GET'])
+# month = request.form['month']
+# year = request.form['year']
+def get_month_moods():
+    month = 3
+    year = 2020
+
+    data = db.session.execute(
+        f"SELECT * FROM mood m JOIN calendar c ON m.date=c.day_id and month={month} and year={year} order by c.day ")
+    return jsonify({'result': [dict(row) for row in data]})
+
+
+@app.route('/monthgraph', methods=['GET'])
+def month_graph():
+    return render_template("month.html")
 
 
 # Fetch moods for current week

@@ -1,0 +1,14 @@
+.box {
+  height: 75vh;
+  width: 75vw;
+  background-color: #263238;
+}
+
+canvas {
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  background-color: #263238;
+}
