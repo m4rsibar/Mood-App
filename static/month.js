@@ -11,11 +11,10 @@ async function ChartInit() {
   var moodgraph = new Chart(canvas, {
     type: "line",
     data: {
-      labels: [1, 2, 3, 4],
       datasets: [
         {
           label: "Mood",
-          data: data,
+          data: info.monthdata,
           backgroundColor: gradientStroke,
           borderColor: gradientStroke,
           pointBorderColor: gradientStroke,
@@ -27,11 +26,20 @@ async function ChartInit() {
           pointHoverBorderWidth: 1,
           pointRadius: 3,
           fill: false,
-          borderWidth: 4
+          borderWidth: 4,
+          responsive: true
         }
       ]
     },
     options: {
+      tooltips: {
+        callbacks: {
+          label: function(tooltipItem, data) {
+            var dataLabel = info.comments[tooltipItem.index];
+            return dataLabel;
+          }
+        }
+      },
       legend: {
         display: true
       },
@@ -67,13 +75,17 @@ async function ChartInit() {
 
 async function getData() {
   let monthdata = [];
-  const res = await fetch("https://mood-visualization.herokuapp.com/month");
+  let comments = [];
+  let dates = [];
+  const res = await fetch("http://127.0.0.1:5000/month");
   const data = await res.json();
   for (var i = 0, l = data.result.length; i < l; i++) {
     monthdata[i] = {
       x: data.result[i].day,
       y: data.result[i].moodrating
     };
+    comments.push(data.result[i].comment);
+    dates.push(data.result[i].date);
   }
-  return monthdata;
+  return (info = { monthdata, comments, dates });
 }

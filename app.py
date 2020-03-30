@@ -5,7 +5,7 @@ from datetime import datetime
 from flask_cors import CORS
 import os
 
-# App
+
 app = Flask(__name__)
 CORS(app)
 
@@ -16,14 +16,11 @@ else:
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.secret_key = os.environ.get('SECRET_KEY')
-
 db = SQLAlchemy(app)
-# Marshmallow
 ma = Marshmallow(app)
 
-# Mood Class
 
-
+# Classes
 class Mood(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     date = db.Column(db.Date, nullable=False)
@@ -47,7 +44,7 @@ class Calendar(db.Model):
     week_of_year = db.Column(db.SmallInteger, nullable=False)
 
 
-# Mood Schema
+# Schemas
 class MoodSchema(ma.Schema):
     class Meta:
         fields = ('id', 'date', 'moodrating', 'comment')
@@ -58,21 +55,54 @@ moods_schema = MoodSchema(many=True)
 
 
 # Routes
-
-
 @app.route('/', methods=['GET'])
-def index():
+def week():
     return render_template("home.html")
 
 
 @app.route('/thisWeeksGraph', methods=['GET'])
-def thisWeeksGraph():
-    return render_template("index.html")
+def this_weeks_graph():
+    return render_template("week.html")
 
 
 @app.route('/moodForm', methods=['GET'])
 def form():
     return render_template("form.html")
+
+
+@app.route('/getmoods', methods=['GET'])
+def get_moods():
+    all_moods = Mood.query.all()
+    result = moods_schema.dump(all_moods)
+    return jsonify(result)
+
+
+@app.route('/month', methods=['GET'])
+def get_month_moods():
+    month = 3
+    year = 2020
+
+    data = db.session.execute(
+        f"SELECT * FROM mood m JOIN calendar c ON m.date=c.day_id and month={month} and year={year} order by c.day ")
+    return jsonify({'result': [dict(row) for row in data]})
+
+
+@app.route('/monthgraph', methods=['GET'])
+def month_graph():
+    return render_template("month.html")
+
+
+@app.route('/thisweek', methods=['GET'])
+def get_weeks_moods():
+    today = datetime.today()
+    week = today.isocalendar()[1]
+    month = today.month
+    year = today.year
+
+# Raw sql requirement
+    data = db.session.execute(
+        f"SELECT m.id, m.date, coalesce(m.moodrating, 0) as moodrating, m.comment, c.day_of_week FROM mood m RIGHT JOIN calendar c ON m.date=c.day_id where c.week_of_year={week} and c.day_of_week <> 0 and month={month} and year={year} union (SELECT m.id, m.date, coalesce(m.moodrating, 0) as moodrating, m.comment, c.day_of_week  FROM mood m RIGHT JOIN calendar c on m.date=c.day_id where c.week_of_year={week - 1} and c.day_of_week={0} and c.month={month} and c.year={year}) order by day_of_week")
+    return jsonify({'result': [dict(row) for row in data]})
 
 
 @app.route('/mood', methods=['POST'])
@@ -96,47 +126,6 @@ def add_mood():
         db.session.commit()
         flash("Mood successfully entered.")
     return redirect('/thisWeeksGraph')
-
-
-# Fetch all moods
-@app.route('/getmoods', methods=['GET'])
-def get_moods():
-    all_moods = Mood.query.all()
-    result = moods_schema.dump(all_moods)
-    return jsonify(result)
-
-# Fetch moods for a month
-
-
-@app.route('/month', methods=['GET'])
-# month = request.form['month']
-# year = request.form['year']
-def get_month_moods():
-    month = 3
-    year = 2020
-
-    data = db.session.execute(
-        f"SELECT * FROM mood m JOIN calendar c ON m.date=c.day_id and month={month} and year={year} order by c.day ")
-    return jsonify({'result': [dict(row) for row in data]})
-
-
-@app.route('/monthgraph', methods=['GET'])
-def month_graph():
-    return render_template("month.html")
-
-
-# Fetch moods for current week
-@app.route('/thisweek', methods=['GET'])
-def get_weeks_moods():
-    today = datetime.today()
-    week = today.isocalendar()[1]
-    month = today.month
-    year = today.year
-
-# Raw sql requirement
-    data = db.session.execute(
-        f"SELECT m.id, m.date, coalesce(m.moodrating, 0) as moodrating, m.comment, c.day_of_week FROM mood m RIGHT JOIN calendar c ON m.date=c.day_id where c.week_of_year={week} and c.day_of_week <> 0 and month={month} and year={year} union (SELECT m.id, m.date, coalesce(m.moodrating, 0) as moodrating, m.comment, c.day_of_week  FROM mood m RIGHT JOIN calendar c on m.date=c.day_id where c.week_of_year={week - 1} and c.day_of_week={0} and c.month={month} and c.year={year}) order by day_of_week")
-    return jsonify({'result': [dict(row) for row in data]})
 
 
 # Run server
