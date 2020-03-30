@@ -59,7 +59,7 @@ async function getData() {
   const dates = [];
   const comments = [];
 
-  const res = await fetch("http://127.0.0.1:5000/thisweek");
+  const res = await fetch("https://mood-visualization.herokuapp.com/thisweek");
   const data = await res.json();
   // console.log(data);
   data.result.forEach(i => {
