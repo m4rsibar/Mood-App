@@ -105,7 +105,7 @@ def get_weeks_moods():
 
 # Raw sql requirement
     data = db.session.execute(
-        f"SELECT m.id, m.date, coalesce(m.moodrating, 0) as moodrating, m.comment, c.day_of_week FROM mood m RIGHT JOIN calendar c ON m.date=c.day_id WHERE c.week_of_year={today.week} AND c.day_of_week <> 0 AND month IN (3,4) AND year={today.year} UNION (SELECT m.id, m.date, coalesce(m.moodrating, 0) AS moodrating, m.comment, c.day_of_week FROM mood m RIGHT JOIN calendar c on m.date=c.day_id WHERE c.week_of_year={today.week - 1} AND c.day_of_week={0} AND c.month IN (3,4) AND c.year={today.year}) ORDER BY day_of_week")
+        f"SELECT m.id, m.date, coalesce(m.moodrating, 0) as moodrating, m.comment, c.day_of_week FROM mood m RIGHT JOIN calendar c ON m.date=c.day_id WHERE c.week_of_year={today.week} AND c.day_of_week <> 0 AND month IN ({month}) AND year={today.year} UNION (SELECT m.id, m.date, coalesce(m.moodrating, 0) AS moodrating, m.comment, c.day_of_week FROM mood m RIGHT JOIN calendar c on m.date=c.day_id WHERE c.week_of_year={today.week - 1} AND c.day_of_week={0} AND c.month IN ({month}) AND c.year={today.year}) ORDER BY day_of_week")
 
     return jsonify({'result': [dict(row) for row in data]})
 
