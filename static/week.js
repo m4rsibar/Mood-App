@@ -61,7 +61,6 @@ async function getData() {
 
   const res = await fetch("https://mood-visualization.herokuapp.com/thisweek");
   const data = await res.json();
-  // console.log(data);
   data.result.forEach(i => {
     moods.push(i.moodrating), dates.push(i.date), comments.push(i.comment);
   });

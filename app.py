@@ -1,7 +1,6 @@
 from flask import Flask, request, jsonify, render_template, redirect, flash
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
-# from datetime import datetime, timedelta
 import datetime
 from flask_cors import CORS
 import os
@@ -102,7 +101,6 @@ def get_weeks_moods():
     else:
         month = today.month
 
-    # return(month)
 # Raw sql requirement
     data = db.session.execute(
         f"SELECT m.id, m.date, coalesce(m.moodrating, 0) as moodrating, m.comment, c.day_of_week FROM mood m RIGHT JOIN calendar c ON m.date=c.day_id where c.week_of_year={today.week} and c.day_of_week <> 0 and month in ({month}) and year={today.year} union (SELECT m.id, m.date, coalesce(m.moodrating, 0) as moodrating, m.comment, c.day_of_week  FROM mood m RIGHT JOIN calendar c on m.date=c.day_id where c.week_of_year={today.week - 1} and c.day_of_week={0} and c.month in ({month}) and c.year={today.year}) order by day_of_week")
