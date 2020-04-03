@@ -4,7 +4,6 @@ from flask_marshmallow import Marshmallow
 import datetime
 from flask_cors import CORS
 import os
-from Modules.Today import Today
 
 
 app = Flask(__name__)
