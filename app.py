@@ -97,15 +97,21 @@ def month_graph():
 
 @app.route('/thisweek', methods=['GET'])
 def get_weeks_moods():
-    today = Today()
-    if today.is_new_month():
-        month = f"{today.get_yesterday()['month']},{today.month}"
+
+    dt = datetime.datetime.today()
+    week = dt.isocalendar()[1]
+    start = dt - datetime.timedelta(days=dt.weekday()+1)
+    end = start + datetime.timedelta(days=6)
+
+    if start.month != end.month:
+        month = (str(start.month)+","+str(end.month))
     else:
-        month = today.month
+        month = (start.month)
+
 
 # Raw sql requirement
     data = db.session.execute(
-        f"SELECT m.id, m.date, coalesce(m.moodrating, 0) as moodrating, m.comment, c.day_of_week FROM mood m RIGHT JOIN calendar c ON m.date=c.day_id WHERE c.week_of_year={today.week} AND c.day_of_week <> 0 AND month IN ({month}) AND year={today.year} UNION (SELECT m.id, m.date, coalesce(m.moodrating, 0) AS moodrating, m.comment, c.day_of_week FROM mood m RIGHT JOIN calendar c on m.date=c.day_id WHERE c.week_of_year={today.week - 1} AND c.day_of_week={0} AND c.month IN ({month}) AND c.year={today.year}) ORDER BY day_of_week")
+        f"SELECT m.id, m.date, coalesce(m.moodrating, 0) as moodrating, m.comment, c.day_of_week FROM mood m RIGHT JOIN calendar c ON m.date=c.day_id WHERE c.week_of_year={week} AND c.day_of_week <> 0 AND month IN ({month}) AND year={dt.year} UNION (SELECT m.id, m.date, coalesce(m.moodrating, 0) AS moodrating, m.comment, c.day_of_week FROM mood m RIGHT JOIN calendar c on m.date=c.day_id WHERE c.week_of_year={week - 1} AND c.day_of_week={0} AND c.month IN ({month}) AND c.year={dt.year}) ORDER BY day_of_week")
 
     return jsonify({'result': [dict(row) for row in data]})
 
