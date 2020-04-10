@@ -81,8 +81,9 @@ def get_moods():
 
 @app.route('/month', methods=['GET'])
 def get_month_moods():
-    month = 3
-    year = 2020
+    dt = datetime.datetime.today()
+    month = dt.month
+    year = dt.year
 
     data = db.session.execute(
         f"SELECT * FROM mood m JOIN calendar c ON m.date=c.day_id and month={month} and year={year} order by c.day ")
