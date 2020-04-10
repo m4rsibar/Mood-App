@@ -27,21 +27,21 @@ async function ChartInit() {
           pointRadius: 3,
           fill: false,
           borderWidth: 4,
-          responsive: true
-        }
-      ]
+          responsive: true,
+        },
+      ],
     },
     options: {
       tooltips: {
         callbacks: {
-          label: function(tooltipItem, data) {
+          label: function (tooltipItem, data) {
             var dataLabel = info.comments[tooltipItem.index];
             return dataLabel;
-          }
-        }
+          },
+        },
       },
       legend: {
-        display: true
+        display: true,
       },
       responsive: false,
       scales: {
@@ -49,10 +49,14 @@ async function ChartInit() {
           {
             ticks: {
               display: true,
-              beginAtZero: true
+              beginAtZero: true,
             },
-            display: true
-          }
+            scaleLabel: {
+              display: true,
+              labelString: "Mood Rating",
+            },
+            display: true,
+          },
         ],
         xAxes: [
           {
@@ -60,16 +64,20 @@ async function ChartInit() {
             position: "bottom",
             ticks: {
               stepSize: 1,
-              max: 31
+              max: 31,
+            },
+            scaleLabel: {
+              display: true,
+              labelString: "Day of Month",
             },
             gridLines: {
-              drawOnChartArea: false
+              drawOnChartArea: false,
             },
-            display: true
-          }
-        ]
-      }
-    }
+            display: true,
+          },
+        ],
+      },
+    },
   });
 }
 
@@ -82,7 +90,7 @@ async function getData() {
   for (var i = 0, l = data.result.length; i < l; i++) {
     monthdata[i] = {
       x: data.result[i].day,
-      y: data.result[i].moodrating
+      y: data.result[i].moodrating,
     };
     comments.push(data.result[i].comment);
     dates.push(data.result[i].date);

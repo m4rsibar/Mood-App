@@ -19,25 +19,25 @@ async function ChartInit() {
         "Wednesday",
         "Thursday",
         "Friday",
-        "Saturday"
+        "Saturday",
       ],
       comments: data.comments,
       datasets: [
         {
           label: "MoodRating",
           data: data.moods,
-          backgroundColor: gradient
-        }
-      ]
+          backgroundColor: gradient,
+        },
+      ],
     },
     options: {
       tooltips: {
         callbacks: {
-          label: function(tooltipItem, data) {
+          label: function (tooltipItem, data) {
             var dataLabel = data.comments[tooltipItem.index];
             return dataLabel;
-          }
-        }
+          },
+        },
       },
       responsive: true,
       scales: {
@@ -45,12 +45,16 @@ async function ChartInit() {
           {
             ticks: {
               suggestedMin: 0,
-              suggestedMax: 5
-            }
-          }
-        ]
-      }
-    }
+              suggestedMax: 5,
+            },
+            scaleLabel: {
+              display: true,
+              labelString: "Mood Rating",
+            },
+          },
+        ],
+      },
+    },
   });
 }
 
@@ -61,7 +65,7 @@ async function getData() {
 
   const res = await fetch("https://mood-visualization.herokuapp.com/thisweek");
   const data = await res.json();
-  data.result.forEach(i => {
+  data.result.forEach((i) => {
     moods.push(i.moodrating), dates.push(i.date), comments.push(i.comment);
   });
   let object = { moods, dates, comments };
