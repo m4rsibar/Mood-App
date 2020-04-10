@@ -3,15 +3,22 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Home</title>
+    <link rel="stylesheet" href="/static/home.css" />
+    <title>Moody</title>
   </head>
   <body>
-    <ul>
-      <li><a href="{{ url_for('form') }}">Enter a mood.</a></li>
-      <li>
-        <a href="{{url_for('this_weeks_graph')}}">View this weeks data</a>
-      </li>
-      <li><a href="{{url_for('month_graph')}}">View data by month</a></li>
-    </ul>
+    <div id="nav">
+      <div class="box menu">
+        <nav>
+          <ul>
+            <li><a href="{{ url_for('form') }}">Enter a Mood</a></li>
+            <li>
+              <a href="{{url_for('this_weeks_graph')}}">This Weeks Data</a>
+            </li>
+            <li><a href="{{url_for('month_graph')}}">View Data by Month</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
   </body>
 </html>

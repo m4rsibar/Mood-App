@@ -79,8 +79,11 @@ def get_moods():
     return jsonify(result)
 
 
-@app.route('/month', methods=['GET'])
+@app.route('/month', methods=['GET', 'POST'])
 def get_month_moods():
+    # mo = request.form['month']
+    # yr = request.form['year']
+
     dt = datetime.datetime.today()
     month = dt.month
     year = dt.year
