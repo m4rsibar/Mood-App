@@ -8,6 +8,7 @@ pylint = "*"
 autopep8 = "*"
 flake8 = "*"
 black = "*"
+yapf = "*"
 
 [packages]
 flask = "*"

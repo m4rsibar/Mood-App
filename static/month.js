@@ -1,14 +1,15 @@
 var canvas = document.getElementById("canvas").getContext("2d");
 var gradientStroke = canvas.createLinearGradient(0, 0, 1800, 0);
+var monthInput = document.getElementById("month");
 gradientStroke.addColorStop(0, "#F02FC2");
 gradientStroke.addColorStop(0.5, "#6094EA");
 gradientStroke.addColorStop(1, "#49d0eb");
 
 ChartInit();
-
+let moodgraph;
 async function ChartInit() {
   const data = await getData();
-  var moodgraph = new Chart(canvas, {
+  moodgraph = new Chart(canvas, {
     type: "line",
     data: {
       datasets: [
@@ -81,11 +82,21 @@ async function ChartInit() {
   });
 }
 
+// function getUserMonth() {
+//   userInput = document.getElementById("month");
+//   userInput.addEventListener("change", (e) => {
+//     e.preventDefault();
+//     console.log(e.target.value);
+//   });
+// }
+
+// getUserMonth();
+
 async function getData() {
   let monthdata = [];
   let comments = [];
   let dates = [];
-  const res = await fetch("https://mood-visualization.herokuapp.com/month");
+  const res = await fetch("http://127.0.0.1:5000/month/");
   const data = await res.json();
   for (var i = 0, l = data.result.length; i < l; i++) {
     monthdata[i] = {
