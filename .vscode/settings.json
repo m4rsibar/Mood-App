@@ -1,8 +1,9 @@
 {
-  "python.pythonPath": "C:\\Users\\maris\\.virtualenvs\\FlaskRestApi-OxxIagkr\\Scripts\\python.exe",
+  "python.pythonPath": "c:\\Users\\maris\\OneDrive\\Desktop\\MoodProj\\flask\\Scripts\\python.exe",
   "python.linting.enabled": true,
   "python.linting.pylintPath": "pylint",
   "editor.formatOnSave": true,
   "python.formatting.provider": "yapf",
-  "python.linting.pylintEnabled": true
+  "python.linting.pylintEnabled": false,
+  "python.linting.flake8Enabled": true
 }
