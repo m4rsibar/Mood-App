@@ -4,6 +4,15 @@
 }
 
 body {
-  /* background: rgba(247, 247, 247); */
   background-color: #263238;
+}
+
+canvas {
+  height: 100%;
+  width: 100%;
+}
+
+#home {
+  position: absolute;
+  top: 0;
 }
