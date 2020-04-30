@@ -10,10 +10,10 @@ app = Flask(__name__)
 CORS(app)
 
 # if os.environ.get('PROD'):
-#     app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://grjibwwwdxokwx:f02ad6175a3472e6112f80ed7213b3fbff07f0ac2bf9e3bb186181e70b920d78@ec2-50-17-178-87.compute-1.amazonaws.com:5432/d4icrnr6v2qbm3'
 # else:
-app.config[
-    'SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:123@localhost/MoodApp'
+# app.config[
+#     'SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:123@localhost/MoodApp'
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.secret_key = os.environ.get('SECRET_KEY')
@@ -145,8 +145,7 @@ def month_graph():
         resp.set_cookie('userMonth', request.args.get('month'))
         return resp
     else:
-        return ("You haven't entered a month")
-    return render_template("month.html", months=months)
+        return render_template("month.html", months=months)
 
 
 @app.route('/thisweek', methods=['GET'])
