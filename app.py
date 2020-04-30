@@ -8,11 +8,11 @@ import os
 app = Flask(__name__)
 CORS(app)
 
-if os.environ.get('PROD'):
-    app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
-else:
-    app.config[
-        'SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:123@localhost/MoodApp'
+# if os.environ.get('PROD'):
+#     app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
+# else:
+app.config[
+    'SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:123@localhost/MoodApp'
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.secret_key = os.environ.get('SECRET_KEY')
@@ -110,13 +110,13 @@ def get_moods():
 @app.route('/month', methods=['GET', 'POST'])
 def get_month_moods():
 
-    # userInputMonth = request.cookies.get('userMonth')
+    userInputMonth = request.cookies.get('userMonth')
     dt = datetime.datetime.today()
     year = dt.year
     month = dt.month
 
-    # if userInputMonth is not None:
-    #     month = userInputMonth
+    if userInputMonth is not None:
+        month = userInputMonth
 
     data = db.session.execute(
         f"SELECT * FROM mood m JOIN calendar c ON m.date=c.day_id and month={month} and year={year} order by c.day "
@@ -127,13 +127,12 @@ def get_month_moods():
 @app.route('/monthgraph', methods=['GET'])
 def month_graph():
 
-    # if request.args.get('month'):
-    #     resp = make_response(render_template("month.html"))
-    #     resp.set_cookie('userMonth', request.args.get('month'))
-    #     return resp
-    # else:
-    #     return ("You haven't entered a month")
-    return render_template("month.html")
+    if request.args.get('month'):
+        resp = make_response(render_template("month.html"))
+        resp.set_cookie('userMonth', request.args.get('month'))
+        return resp
+    else:
+        return render_template("month.html")
 
 
 @app.route('/thisweek', methods=['GET'])
@@ -177,7 +176,6 @@ def add_mood():
         new_mood = Mood(date, moodratingDivided, comment)
         db.session.add(new_mood)
         db.session.commit()
-        flash("Mood successfully entered.")
     return redirect('/thisWeeksGraph')
 
 
