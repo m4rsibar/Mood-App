@@ -3,9 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
-    <title>Moody</title>
-    <link rel="stylesheet" href="/static/week.css" />
+    <title>Document</title>
   </head>
   <body>
     <!-- Home Button -->
@@ -44,9 +42,11 @@
         </g>
       </svg>
     </a>
-    <div class="box">
-      <canvas id="chart"></canvas>
-    </div>
-    <script src="/static/week.js"></script>
+    <select>
+      {% block content %} {% for i in months %}
+      <option>{{ i }}</option>
+
+      {% endfor %} {%endblock %}
+    </select>
   </body>
 </html>
