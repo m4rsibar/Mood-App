@@ -1,6 +1,8 @@
 # Mood-App
 Visual analytics Application that displays user mood data.
 
+![](images/month.png)
+
 ## Technical Summary
 
 -  **Backend:** Python
