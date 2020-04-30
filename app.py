@@ -107,16 +107,16 @@ def get_moods():
     return jsonify(result)
 
 
-@app.route('/month/', methods=['GET', 'POST'])
+@app.route('/month', methods=['GET', 'POST'])
 def get_month_moods():
 
-    userInputMonth = request.cookies.get('userMonth')
+    # userInputMonth = request.cookies.get('userMonth')
     dt = datetime.datetime.today()
     year = dt.year
     month = dt.month
 
-    if userInputMonth is not None:
-        month = userInputMonth
+    # if userInputMonth is not None:
+    #     month = userInputMonth
 
     data = db.session.execute(
         f"SELECT * FROM mood m JOIN calendar c ON m.date=c.day_id and month={month} and year={year} order by c.day "
@@ -127,12 +127,12 @@ def get_month_moods():
 @app.route('/monthgraph', methods=['GET'])
 def month_graph():
 
-    if request.args.get('month'):
-        resp = make_response(render_template("month.html"))
-        resp.set_cookie('userMonth', request.args.get('month'))
-        return resp
-    else:
-        return ("You haven't entered a month")
+    # if request.args.get('month'):
+    #     resp = make_response(render_template("month.html"))
+    #     resp.set_cookie('userMonth', request.args.get('month'))
+    #     return resp
+    # else:
+    #     return ("You haven't entered a month")
     return render_template("month.html")
 
 
