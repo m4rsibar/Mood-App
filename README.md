@@ -15,9 +15,11 @@ Visual analytics Application that displays user mood data.
 ## Getting Started
 
 1. Clone the project
-2. pip install -r requirements.txt
-3. python app.py
-4. Or visit this link [https://mood-visualization.herokuapp.com/](https://mood-visualization.herokuapp.com/) using **Chrome's web browser.**
+2. virutalenv venv,
+3. source venv/bin/activate
+4. pip install -r requirements.txt
+5. FLASK_APP=app.py flask run
+6. Or visit this link [https://mood-visualization.herokuapp.com/](https://mood-visualization.herokuapp.com/) using **Chrome's web browser.**
 
 ## Features
 - Performs CRUD operations.
