@@ -14,7 +14,8 @@ Visual analytics Application that displays user mood data.
 
 ## Getting Started
 
-```$ git clone https://github.com/m4rsibar/Mood-App.git
+```
+$ git clone https://github.com/m4rsibar/Mood-App.git
 $ virutalenv venv
 $ source venv/bin/activate
 $ pip install -r requirements.txt
