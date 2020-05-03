@@ -15,7 +15,8 @@ Visual analytics Application that displays user mood data.
 ## Getting Started
 
 1. Clone the project
-2. virutalenv venv,
+and run the following commands:
+2. virutalenv venv
 3. source venv/bin/activate
 4. pip install -r requirements.txt
 5. FLASK_APP=app.py flask run
