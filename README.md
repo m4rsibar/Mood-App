@@ -19,8 +19,10 @@ $ virutalenv venv
 $ source venv/bin/activate
 $ pip install -r requirements.txt
 $ FLASK_APP=app.py flask run
-Or visit this link [https://mood-visualization.herokuapp.com/](https://mood-visualization.herokuapp.com/) using **Chrome's web   browser.**
 ```
+Or visit this link [https://mood-visualization.herokuapp.com/](https://mood-visualization.herokuapp.com/) using **Chrome's web   browser.**
+
+
 ## Features
 - Performs CRUD operations.
 - Data visualization.
