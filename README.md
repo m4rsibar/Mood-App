@@ -16,10 +16,9 @@ Visual analytics Application that displays user mood data.
 
 ```
 $ git clone https://github.com/m4rsibar/Mood-App.git
-$ virutalenv venv
-$ source venv/bin/activate
+$ cd Mood-App/
 $ pip install -r requirements.txt
-$ FLASK_APP=app.py flask run
+$ python app.py
 ```
 Or visit this link [https://mood-visualization.herokuapp.com/](https://mood-visualization.herokuapp.com/) using **Chrome's web   browser.**
 
