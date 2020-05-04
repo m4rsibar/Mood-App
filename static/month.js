@@ -56,6 +56,7 @@ async function ChartInit() {
             ticks: {
               display: true,
               beginAtZero: true,
+              suggestedMax: 5,
             },
             scaleLabel: {
               display: true,
@@ -91,8 +92,6 @@ async function getData() {
   let monthdata = [];
   let comments = [];
   let dates = [];
-  let avaliableMonths = [];
-  let avaliableYears = [];
 
   const res = await fetch("https://mood-visualization.herokuapp.com/month");
   const data = await res.json();
@@ -104,48 +103,10 @@ async function getData() {
     comments.push(data.result[i].comment);
     dates.push(data.result[i].date);
   }
-  // for (var i = 0, l = data.avaliableDates.length; i < l; i++) {
-  //   avaliableMonths.push(data.avaliableDates[i].month);
-  //   avaliableYears.push(data.avaliableDates[i].year);
-  // }
 
   return (info = {
     monthdata,
     comments,
     dates,
-    // avaliableMonths,
-    // avaliableYears,
   });
 }
-
-// async function PopulateDropdown() {
-//   const avaliableDates = await getData();
-//   var select = document.getElementById("select"),
-//     arr = avaliableDates.avaliableMonths;
-
-//   monthName = (mon) => {
-//     return [
-//       "January",
-//       "February",
-//       "March",
-//       "April",
-//       "May",
-//       "June",
-//       "July",
-//       "August",
-//       "September",
-//       "November",
-//       "December",
-//     ][mon - 1];
-//   };
-
-//   for (var i = 0; i < arr.length; i++) {
-//     var option = document.createElement("OPTION"),
-//       txt = document.createTextNode(monthName(arr[i]));
-//     option.appendChild(txt);
-//     option.setAttribute("value", arr[i]);
-//     select.insertBefore(option, select.lastChild);
-//   }
-// }
-
-// PopulateDropdown();
