@@ -50,12 +50,12 @@ async function ChartInit() {
             ticks: {
               display: true,
               beginAtZero: true,
+              suggestedMax: 5,
             },
             scaleLabel: {
               display: true,
               labelString: "Mood Rating",
             },
-            display: true,
           },
         ],
         xAxes: [
