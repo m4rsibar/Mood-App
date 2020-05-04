@@ -14,10 +14,14 @@ Visual analytics Application that displays user mood data.
 
 ## Getting Started
 
-1. Clone the project
-2. ...
-3. ...
-4. Or visit this link [https://mood-visualization.herokuapp.com/](https://mood-visualization.herokuapp.com/) using **Chrome's web browser.**
+```
+$ git clone https://github.com/m4rsibar/Mood-App.git
+$ cd Mood-App/
+$ pip install -r requirements.txt
+$ python app.py
+```
+Or visit this link [https://mood-visualization.herokuapp.com/](https://mood-visualization.herokuapp.com/) using **Chrome's web   browser.**
+
 
 ## Features
 - Performs CRUD operations.
