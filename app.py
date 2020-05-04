@@ -4,15 +4,29 @@ from flask_marshmallow import Marshmallow
 import datetime
 from flask_cors import CORS
 import os
+import json
 
 app = Flask(__name__)
 CORS(app)
 
 # if os.environ.get('PROD'):
+<< << << < HEAD
+<< << << < HEAD
 #     app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
 # else:
 app.config[
-    'SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:123@localhost/MoodApp'
+    'SQLALCHEMY_DATABASE_URI'] = 'postgres://grjibwwwdxokwx:f02ad6175a3472e6112f80ed7213b3fbff07f0ac2bf9e3bb186181e70b920d78@ec2-50-17-178-87.compute-1.amazonaws.com:5432/d4icrnr6v2qbm3'
+== == == =
+== == == =
+>>>>>> > dateSelection
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://grjibwwwdxokwx:f02ad6175a3472e6112f80ed7213b3fbff07f0ac2bf9e3bb186181e70b920d78@ec2-50-17-178-87.compute-1.amazonaws.com:5432/d4icrnr6v2qbm3'
+# else:
+# app.config[
+#     'SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:123@localhost/MoodApp'
+<< << << < HEAD
+>>>>>> > dateSelection
+== == == =
+>>>>>> > dateSelection
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.secret_key = os.environ.get('SECRET_KEY')
@@ -81,7 +95,15 @@ if tableExists('calendar') is True:
     if isTableEmpty('calendar') == 1:
         FillCalendar()
     else:
-        print("Calendar table is populated.")
+<< << << < HEAD
+<< << << < HEAD
+print("Calendar table is populated.")
+== == == =
+print(">>>Calendar table is populated.")
+>>>>>> > dateSelection
+== == == =
+print(">>>Calendar table is populated.")
+>>>>>> > dateSelection
 
 
 # Routes
@@ -107,7 +129,7 @@ def get_moods():
     return jsonify(result)
 
 
-@app.route('/month', methods=['GET', 'POST'])
+@app.route('/month/', methods=['GET', 'POST'])
 def get_month_moods():
 
     userInputMonth = request.cookies.get('userMonth')
@@ -121,6 +143,8 @@ def get_month_moods():
     data = db.session.execute(
         f"SELECT * FROM mood m JOIN calendar c ON m.date=c.day_id and month={month} and year={year} order by c.day "
     )
+    # Gets Months and Year for dropdown.
+
     return jsonify({'result': [dict(row) for row in data]})
 
 
@@ -133,6 +157,23 @@ def month_graph():
         return resp
     else:
         return render_template("month.html")
+
+    avaliableDates = db.session.execute(
+        f"SELECT month, year FROM mood m INNER JOIN calendar c ON c.day_id=m.date GROUP BY month, year ORDER BY month, year desc"
+    )
+
+    months = []
+
+    for i in avaliableDates:
+        months.append(i[0])
+
+    if request.args.get('month'):
+        resp = make_response(render_template(
+            "month.html", months=months))
+        resp.set_cookie('userMonth', request.args.get('month'))
+        return resp
+    else:
+        return render_template("month.html", months=months)
 
 
 @app.route('/thisweek', methods=['GET'])
