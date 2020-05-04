@@ -85,7 +85,7 @@ async function getData() {
   let monthdata = [];
   let comments = [];
   let dates = [];
-  const res = await fetch("http://127.0.0.1:5000/month");
+  const res = await fetch("https://mood-visualization.herokuapp.com/month");
   const data = await res.json();
   for (var i = 0, l = data.result.length; i < l; i++) {
     monthdata[i] = {
