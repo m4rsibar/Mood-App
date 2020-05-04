@@ -91,10 +91,14 @@ async function getData() {
   let monthdata = [];
   let comments = [];
   let dates = [];
+<<<<<<< HEAD
   let avaliableMonths = [];
   let avaliableYears = [];
 
   const res = await fetch("https://mood-visualization.herokuapp.com/month");
+=======
+  const res = await fetch("http://127.0.0.1:5000/month");
+>>>>>>> parent of 6ef4816... added sample dataset
   const data = await res.json();
   for (var i = 0, l = data.result.length; i < l; i++) {
     monthdata[i] = {
