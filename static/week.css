@@ -3,11 +3,11 @@
   width: 75vw;
 }
 
-body {
-  background-color: #263238;
-}
-
 canvas {
   height: 100%;
   width: 100%;
+}
+
+body {
+  background-color: #263238;
 }
