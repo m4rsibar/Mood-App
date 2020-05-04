@@ -1,14 +1,20 @@
 var canvas = document.getElementById("canvas").getContext("2d");
 var gradientStroke = canvas.createLinearGradient(0, 0, 1800, 0);
+var monthInput = document.getElementById("month");
 gradientStroke.addColorStop(0, "#F02FC2");
 gradientStroke.addColorStop(0.5, "#6094EA");
 gradientStroke.addColorStop(1, "#49d0eb");
 
-ChartInit();
+// window.onload = () => {
+//   var userMonth = getCookie("userMonth");
+//   document.getElementById("select").innerHTML = userMonth;
+// };
 
+ChartInit();
+let moodgraph;
 async function ChartInit() {
   const data = await getData();
-  var moodgraph = new Chart(canvas, {
+  moodgraph = new Chart(canvas, {
     type: "line",
     data: {
       datasets: [
@@ -85,6 +91,9 @@ async function getData() {
   let monthdata = [];
   let comments = [];
   let dates = [];
+  let avaliableMonths = [];
+  let avaliableYears = [];
+
   const res = await fetch("https://mood-visualization.herokuapp.com/month");
   const data = await res.json();
   for (var i = 0, l = data.result.length; i < l; i++) {
@@ -95,5 +104,48 @@ async function getData() {
     comments.push(data.result[i].comment);
     dates.push(data.result[i].date);
   }
-  return (info = { monthdata, comments, dates });
+  // for (var i = 0, l = data.avaliableDates.length; i < l; i++) {
+  //   avaliableMonths.push(data.avaliableDates[i].month);
+  //   avaliableYears.push(data.avaliableDates[i].year);
+  // }
+
+  return (info = {
+    monthdata,
+    comments,
+    dates,
+    // avaliableMonths,
+    // avaliableYears,
+  });
 }
+
+// async function PopulateDropdown() {
+//   const avaliableDates = await getData();
+//   var select = document.getElementById("select"),
+//     arr = avaliableDates.avaliableMonths;
+
+//   monthName = (mon) => {
+//     return [
+//       "January",
+//       "February",
+//       "March",
+//       "April",
+//       "May",
+//       "June",
+//       "July",
+//       "August",
+//       "September",
+//       "November",
+//       "December",
+//     ][mon - 1];
+//   };
+
+//   for (var i = 0; i < arr.length; i++) {
+//     var option = document.createElement("OPTION"),
+//       txt = document.createTextNode(monthName(arr[i]));
+//     option.appendChild(txt);
+//     option.setAttribute("value", arr[i]);
+//     select.insertBefore(option, select.lastChild);
+//   }
+// }
+
+// PopulateDropdown();
