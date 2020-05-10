@@ -75,7 +75,6 @@ def FillCalendar():
         f" INSERT INTO calendar (day_id, year, month, day, day_of_week, day_of_year, week_of_year)(SELECT ts,EXTRACT(YEAR FROM ts),EXTRACT(MONTH FROM ts),EXTRACT(DAY FROM ts),EXTRACT(DOW FROM ts),EXTRACT(DOY FROM ts),EXTRACT(WEEK FROM ts)FROM generate_series('2019-01-01'::timestamp, '2038-01-01', '1day'::interval) AS t(ts));"
     )
     db.session.commit()
-    print('populated')
 
 
 if tableExists('calendar') is True:
@@ -189,7 +188,6 @@ def add_mood():
         new_mood = Mood(date, moodratingDivided, comment)
         db.session.add(new_mood)
         db.session.commit()
-        flash("Mood successfully entered.")
     return redirect('/thisWeeksGraph')
 
 
