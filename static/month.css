@@ -13,7 +13,14 @@ body {
 }
 
 #select {
-  width: 8em;
+  width: 10em;
   height: 2em;
   border-radius: 0.3em;
+  margin-left: 3em;
+}
+
+#monthText {
+  color: white;
+  font-family: sans-serif;
+  margin-left: 3em;
 }

@@ -5,6 +5,7 @@ import datetime
 from flask_cors import CORS
 import os
 import json
+import calendar
 
 app = Flask(__name__)
 CORS(app)
@@ -131,7 +132,6 @@ def month_graph():
     avaliableDates = db.session.execute(
         f"SELECT month, year FROM mood m INNER JOIN calendar c ON c.day_id=m.date GROUP BY month, year ORDER BY month, year desc"
     )
-    # jsondates = jsonify({'result': [dict(row) for row in avaliableDates]})
 
     months = []
 
@@ -139,8 +139,11 @@ def month_graph():
         months.append(i[0])
 
     if request.args.get('month'):
+        userMonth = int(request.args.get('month'))
+        monthName = calendar.month_name[userMonth]
+
         resp = make_response(render_template(
-            "month.html", months=months))
+            "month.html", months=months, response=monthName))
         resp.set_cookie('userMonth', request.args.get('month'))
         return resp
     else:

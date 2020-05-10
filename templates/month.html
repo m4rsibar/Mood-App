@@ -53,16 +53,14 @@
           id="month"
           onchange="this.form.submit()"
         >
-          <option>Month</option>
+          <option value="0">Select a Month</option>
           {% block content %} {% for i in months %}
 
           <option value="{{ i }}">{{ i }}</option>
-
-          {% endfor %} {%endblock %}
+          {% endfor %} {%endblock%}
         </select>
-
-        <!-- <button type="submit">submit</button> -->
       </form>
+      <p id="monthText">{{response}}</p>
     </div>
     <script src="/static/month.js"></script>
   </body>
