@@ -110,8 +110,10 @@ def get_moods():
 
 @app.route('/month/', methods=['GET', 'POST'])
 def get_month_moods():
-
     userInputMonth = request.cookies.get('userMonth')
+    dt = datetime.datetime.today()
+    year = dt.year
+    month = dt.month
 
     if userInputMonth is not None:
         # If there is a cookie set, retrieve the data for the month from the cookie.
