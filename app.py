@@ -155,7 +155,12 @@ def month_graph():
         resp.set_cookie('userMonth', request.args.get('month'))
         return resp
     else:
-        return render_template("month.html", months=months)
+        dt = datetime.datetime.today()
+        month = dt.month
+
+        monthRedirectPath = f"monthgraph?month={month}"
+
+        return redirect(monthRedirectPath)
 
 
 @app.route('/thisweek', methods=['GET'])
