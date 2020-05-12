@@ -82,7 +82,7 @@ if tableExists('calendar') is True:
     if isTableEmpty('calendar') == 1:
         FillCalendar()
     else:
-        print(">>>Calendar table is populated.")
+        print(">>>Calendar table is already populated.")
 
 
 # Routes
@@ -112,42 +112,46 @@ def get_moods():
 def get_month_moods():
 
     userInputMonth = request.cookies.get('userMonth')
-    dt = datetime.datetime.today()
-    year = dt.year
-    month = dt.month
 
     if userInputMonth is not None:
+        # If there is a cookie set, retrieve the data for the month from the cookie.
         month = userInputMonth
-
-    data = db.session.execute(
-        f"SELECT * FROM mood m JOIN calendar c ON m.date=c.day_id and month={month} and year={year} order by c.day "
-    )
-    # Gets Months and Year for dropdown.
-
+    else:
+        # If there's no cookie set(cookie is set through /monthgraph route, if user inputs a query parameter)
+        # Then get data for the current month/year.
+        dt = datetime.datetime.today()
+        year = dt.year
+        month = dt.month
+        data = db.session.execute(
+            f"SELECT * FROM mood m JOIN calendar c ON m.date=c.day_id and month={month} and year={year} order by c.day "
+        )
     return jsonify({'result': [dict(row) for row in data]})
 
 
 @app.route('/monthgraph', methods=['GET'])
 def month_graph():
+    # Gets the dates that contain data - to display in a dropdown.
     avaliableDates = db.session.execute(
         f"SELECT month, year FROM mood m INNER JOIN calendar c ON c.day_id=m.date GROUP BY month, year ORDER BY month, year desc"
     )
-
+    # Array containing months with data to send to template to display in dropdown.
     months = []
 
     for i in avaliableDates:
         months.append(i[0])
 
+    # Checks if there is a month set in query string
     if request.args.get('month'):
         userMonth = int(request.args.get('month'))
         monthName = calendar.month_name[userMonth]
 
         resp = make_response(render_template(
-            "month.html", months=months, response=monthName))
+            "month.html", months=months, monthName=monthName))
         resp.set_cookie('userMonth', request.args.get('month'))
         return resp
     else:
-        return render_template("month.html", months=months)
+        return redirect('monthgraph?month=5')
+        # return render_template("month.html", months=months)
 
 
 @app.route('/thisweek', methods=['GET'])
