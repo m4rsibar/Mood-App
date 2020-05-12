@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css?family=Lato:300,400&display=swap");
 
 body {
-  background: #263238;
+  background: linear-gradient(to top, #222831, #222839);
   font-family: "Lato";
   font-weight: 300;
 }
