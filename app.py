@@ -116,6 +116,9 @@ def get_month_moods():
     if userInputMonth is not None:
         # If there is a cookie set, retrieve the data for the month from the cookie.
         month = userInputMonth
+        data = db.session.execute(
+            f"SELECT * FROM mood m JOIN calendar c ON m.date=c.day_id and month={month} and year={year} order by c.day "
+        )
     else:
         # If there's no cookie set(cookie is set through /monthgraph route, if user inputs a query parameter)
         # Then get data for the current month/year.
