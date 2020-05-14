@@ -4,7 +4,7 @@ Visual analytics Application that displays user mood data.
 ![](images/month.png)
 
 ## About
-The way I approached this project was simple. I wanted to create an application that could keep and visualize a history of individualized data.
+I wanted to create an application that could keep and visualize a history of individualized data.
 I decided to use mood data, that is, how I was feeling at that particular time.  The data is recorded using a 1-5 range.  Only one mood can be recorded a day, and an optional comment can be attatched and displayed on the graph. 
 
 ## Technical Summary
