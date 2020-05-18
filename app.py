@@ -17,7 +17,9 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://grjibwwwdxokwx:f02ad6175a347
 #     'SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:123@localhost/MoodApp'
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.secret_key = os.environ.get('SECRET_KEY')
+# app.secret_key = os.environ.get('SECRET_KEY')
+
+app.secret_key = 'forprojecttesting'
 
 db = SQLAlchemy(app)
 ma = Marshmallow(app)
