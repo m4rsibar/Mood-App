@@ -31,11 +31,4 @@ Or visit this link [https://mood-visualization.herokuapp.com/](https://mood-visu
 - Performs CRUD operations.
 - Data visualization.
 
-## Milestones
-
-- [x] Create a GitHub Repo and Start on a Project Plan
-- [x] Get Familiarized with Chart.js documentation
-- [x] Create Database and Tables.
-- [x] Create frontend components
-- [x] Use a http requests to get/post data to/from db
 
