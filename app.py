@@ -127,7 +127,7 @@ def get_month_moods():
         # If there's no cookie set(cookie is set through /monthgraph route, if user inputs a query parameter)
         # Then get data for the current month/year.
         dt = datetime.datetime.today()
-        year = dt.year
+        year = 2020
         month = dt.month
         data = db.session.execute(
             f"SELECT * FROM mood m JOIN calendar c ON m.date=c.day_id and month={month} and year={year} order by c.day "
@@ -139,7 +139,7 @@ def get_month_moods():
 def month_graph():
     # Gets the dates that contain data - to display in a dropdown.
     avaliableDates = db.session.execute(
-        f"SELECT month, year FROM mood m INNER JOIN calendar c ON c.day_id=m.date GROUP BY month, year ORDER BY month, year desc"
+        f"SELECT month, year FROM mood m INNER JOIN calendar c ON c.day_id=m.date WHERE year ='2020' GROUP BY month, year ORDER BY month, year desc"
     )
     # Array containing months with data to send to template to display in dropdown.
     months = []
