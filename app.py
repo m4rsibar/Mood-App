@@ -114,7 +114,7 @@ def get_moods():
 def get_month_moods():
     userInputMonth = request.cookies.get('userMonth')
     dt = datetime.datetime.today()
-    year = dt.year
+    year = 2020
     month = dt.month
 
     if userInputMonth is not None:
