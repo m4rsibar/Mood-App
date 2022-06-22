@@ -22,7 +22,7 @@ lazy-object-proxy==1.4.3
 MarkupSafe==1.1.1
 marshmallow==3.5.1
 mccabe==0.6.1
-numpy==1.18.1
+numpy==1.22.0
 pandas==0.25.3
 pipenv==2018.11.26
 psycopg2==2.8.4
